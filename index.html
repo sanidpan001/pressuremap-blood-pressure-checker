@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PressureMap — Blood Pressure Checker & Reading Log: Know Your Category</title>
+<meta name="description" content="Free blood pressure checker. Enter systolic and diastolic readings to get your AHA category instantly — plus a private reading log with morning/evening averages and CSV export.">
+<link rel="canonical" href="https://pressuremap.fixoraa.tech/">
+<meta property="og:title" content="PressureMap — Blood Pressure Checker & Reading Log: Know Your Category">
+<meta property="og:description" content="Free blood pressure checker. Enter systolic and diastolic readings to get your AHA category instantly — plus a private reading log with morning/evening averages and CSV export.">
+<meta property="og:url" content="https://pressuremap.fixoraa.tech/">
+<meta property="og:type" content="website">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{--pri:#BE123C;--acc:#0D9488;--bgc:#FFF1F2}
+body{background:var(--bgc);font-family:'Segoe UI',system-ui,sans-serif}
+.pri{background:var(--pri)} .prit{color:var(--pri)} .acct{color:var(--acc)}
+.btn{background:var(--pri);color:#fff;padding:.6rem 1.2rem;border-radius:.6rem;font-weight:600;cursor:pointer;border:none}
+.btn:hover{opacity:.9} .btn2{background:var(--acc);color:#111;padding:.6rem 1.2rem;border-radius:.6rem;font-weight:600;cursor:pointer;border:none}
+input,select,textarea{border:1.5px solid #cbd5e1;border-radius:.55rem;padding:.55rem .7rem;width:100%;background:#fff;color:#0f172a}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--pri);border-color:transparent}
+label{font-size:.83rem;font-weight:600;display:block;margin-bottom:.3rem}
+.card{background:#fff;border-radius:1rem;box-shadow:0 8px 30px rgba(15,23,42,.08);padding:1.4rem}
+article p{margin:.7rem 0;line-height:1.75;color:#334155}
+article h2{font-size:1.45rem;font-weight:800;margin:1.6rem 0 .4rem;color:#0f172a}
+.faq{background:#fff;border-radius:.7rem;padding:.9rem 1.1rem;margin:.55rem 0;box-shadow:0 2px 10px rgba(15,23,42,.05)}
+.faq summary{font-weight:700;cursor:pointer}
+table.dt{width:100%;border-collapse:collapse} table.dt th,table.dt td{border:1px solid #e2e8f0;padding:.45rem .6rem;text-align:left;font-size:.9rem}
+table.dt th{background:#f1f5f9}
+
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "PressureMap", "url": "https://pressuremap.fixoraa.tech/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Free blood pressure checker. Enter systolic and diastolic readings to get your AHA category instantly \u2014 plus a private reading log with morning/evening averages and CSV export."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is a normal blood pressure reading?", "acceptedAnswer": {"@type": "Answer", "text": "Below 120 systolic and below 80 diastolic is Normal under AHA bands. 120\u2013129 with diastolic under 80 is Elevated; 130/80 and above enters hypertension stages, classified by whichever number is higher."}}, {"@type": "Question", "name": "Can one high reading diagnose hypertension?", "acceptedAnswer": {"@type": "Answer", "text": "No. Diagnosis requires repeated readings over days, ideally structured home or 24-hour monitoring. A single high value is a prompt to measure properly and consult a clinician \u2014 especially if readings stay in Stage 1 or 2."}}, {"@type": "Question", "name": "When is blood pressure an emergency?", "acceptedAnswer": {"@type": "Answer", "text": "Above 180 systolic and/or 120 diastolic is the crisis band. With chest pain, breathlessness, weakness, confusion or vision changes, seek emergency care immediately rather than re-measuring."}}, {"@type": "Question", "name": "How often should I check my blood pressure?", "acceptedAnswer": {"@type": "Answer", "text": "For mapping a baseline: morning and evening for a week, two readings a minute apart, logging the second. For maintenance, a few readings weekly suffice for most people \u2014 follow your clinician's guidance for your situation."}}, {"@type": "Question", "name": "Is my reading log private?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The log lives only in your browser's local storage on this device \u2014 nothing is uploaded. Exporting CSV creates a file you control, designed for sharing with your doctor."}}, {"@type": "Question", "name": "Why log morning and evening separately?", "acceptedAnswer": {"@type": "Answer", "text": "Pressure follows a daily rhythm \u2014 morning surge, evening variation \u2014 and patterns like high mornings only are diagnostically meaningful. Separate averages reveal what a single overall average hides."}}]}</script>
+</head>
+<body id="top">
+<header class="sticky top-0 z-40 shadow-md" style="background:#4C0519">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex items-center justify-between">
+    <a href="#top" class="text-xl font-extrabold tracking-tight" style="color:#FFF1F2">🩺 PressureMap</a>
+    <nav class="flex gap-5 text-sm font-semibold" style="color:#FFF1F2">
+      <a href="#top" class="hover:underline">Home</a>
+      <a href="https://fixoraa.tech" class="hover:underline">More Tools</a>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+  <div class="text-center mb-6">
+    <h1 class="text-3xl sm:text-4xl font-extrabold" style="color:#0f172a">Blood Pressure Checker & Log</h1>
+    <p class="mt-2 text-slate-600 max-w-2xl mx-auto">Enter a reading and PressureMap classifies it instantly using standard AHA bands — Normal, Elevated, Stage 1, Stage 2. Keep a private log on this device, watch your trend, and export it for your doctor.</p>
+    <span class="inline-block mt-3 px-3 py-1 rounded-full text-xs font-bold text-white pri">✓ Unlimited Free Usage — No Signup, No Watermark</span>
+  </div>
+  <div class="grid md:grid-cols-5 gap-6">
+  <div class="card md:col-span-2 space-y-3">
+    <div><label>Systolic (top number, mmHg)</label><input id="sys" type="number" value="128"></div>
+    <div><label>Diastolic (bottom number, mmHg)</label><input id="dia" type="number" value="82"></div>
+    <div><label>When</label><select id="when"><option value="morning">Morning</option><option value="evening">Evening</option></select></div>
+    <button class="btn w-full" onclick="check()">Check & Log Reading</button>
+    <div id="cat" class="text-center p-4 rounded-xl font-extrabold text-xl"></div>
+    <p class="text-xs text-slate-500">Educational only — a single reading never diagnoses anything. Hypertension is diagnosed from repeated readings, ideally confirmed by a clinician.</p>
+  </div>
+  <div class="card md:col-span-3">
+    <h3 class="font-bold">Your log (stored only on this device)</h3>
+    <div id="stats" class="my-2 font-semibold"></div>
+    <div class="overflow-x-auto max-h-64 overflow-y-auto"><table class="dt" id="tbl"></table></div>
+    <div class="flex gap-2 mt-3 flex-wrap"><button class="btn2" onclick="exportCsv()">⬇ Export CSV for my doctor</button><button class="btn" onclick="clearLog()">Clear log</button></div>
+    <table class="dt mt-4"><tr><th>Category</th><th>Systolic</th><th>Diastolic</th></tr><tr><td>Normal</td><td>&lt;120</td><td>and &lt;80</td></tr><tr><td>Elevated</td><td>120–129</td><td>and &lt;80</td></tr><tr><td>Stage 1</td><td>130–139</td><td>or 80–89</td></tr><tr><td>Stage 2</td><td>≥140</td><td>or ≥90</td></tr><tr><td>Crisis</td><td>&gt;180</td><td>and/or &gt;120</td></tr></table>
+  </div></div>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script async src="https://js.wpadmngr.com/static/adManager.js" data-admpid="464498"></script>
+    </div>
+  </div>
+</div>
+<section class="mx-auto max-w-4xl px-4 sm:px-6 pb-6">
+  <article>
+  <h2>The two numbers that quietly run your health</h2>
+<p>Blood pressure is the force of blood against artery walls, and it is reported as a pair because your heart lives two lives: the squeeze (systolic, the top number) that pushes blood out, and the release (diastolic, the bottom) while it refills. Of all the numbers in medicine, few predict your future as reliably — sustained high pressure silently scars arteries, heart, kidneys, eyes and brain for years before the first symptom, which is why hypertension earned its 'silent' reputation and why a thirty-second reading carries so much information. PressureMap's job is to make that reading legible: your numbers, your category, and what the category asks of you.</p>
+<p>The categories used here follow the American Heart Association bands adopted widely in modern guidelines: Normal below 120/80; Elevated at 120–129 with diastolic still under 80; Stage 1 hypertension beginning at 130/80; Stage 2 at 140/90; and a crisis zone above 180 and/or 120 that warrants urgent attention. Notice the asymmetry — a reading is classified by whichever number is worse, top or bottom — because risk follows the worst signal, not the average of the two.</p>
+<h2>How to take a reading worth trusting</h2>
+<p>A blood pressure number is only as good as the minute before it. Sit quietly for five minutes, back supported, feet flat, arm resting at heart level, cuff on bare skin of the correct size — then measure without talking, scrolling or crossing your legs. Coffee, a cigarette, a full bladder, a rushed staircase or an argument can each add five to fifteen points that your arteries do not actually live with. Home devices should be validated models, and the first reading of a session — often a few points high from the ritual itself — is commonly discarded in favour of the average of the next two.</p>
+<p>Timing creates its own pattern worth mapping: pressure normally dips overnight, surges on waking, and for many people runs higher in the evening. That is why the log separates morning and evening averages — a pattern invisible in any single reading becomes diagnosable across a fortnight of them. PressureMap stores everything on your device only, because a health log is private by definition; the CSV export exists for the one person you choose to show: your clinician.</p>
+<h2>What a category should — and should not — make you do</h2>
+<p>A single reading never diagnoses hypertension; clinicians diagnose from repeated measurements across days, often confirmed with 24-hour ambulatory or structured home monitoring. So treat one Stage 1 result as an instruction to measure properly for a week and book a review — not as a verdict, and equally not as nothing. Elevated is the category built for agency: no medication is usually involved, and the lifestyle levers genuinely move it — sodium down, potassium-rich food up, brisk walking most days, weight trending down, alcohol modest, sleep defended. Stage 2 normally means medication plus those same levers, started promptly rather than someday.</p>
+<p>The crisis band is different in kind: above 180 systolic or 120 diastolic, especially with chest pain, breathlessness, weakness or vision changes, the correct action is emergency care, not another reading. Everywhere else, the correct action is a pattern of honest measurements shared with a professional — which is precisely the habit this page is built to support.</p>
+<h2>Why the log matters more than any single check</h2>
+<p>Blood pressure is weather; the log is climate. One windy reading tells you almost nothing about the season your arteries live in, but thirty readings across mornings and evenings reveal your baseline, your variability, your response to a stressful month or a new habit. People who log discover things no clinic visit can: that their pressure is perfect except on workday mornings, or that it fell six points the month they started walking after dinner. Those discoveries are the raw material of good medicine and good motivation alike.</p>
+<p>Bring the export to appointments. A clinician given six weeks of structured home readings can distinguish true hypertension from the white-coat effect — pressure that spikes only in clinics, remarkably common — and can judge whether medication is working at your kitchen table, not just in their office. Your log turns a ten-minute consultation into a data review. Few health habits pay so well for thirty seconds a day.</p>
+<h2>Lowering pressure without a prescription pad</h2>
+<p>The lifestyle evidence is unusually strong, which is why guidelines lead with it. The DASH eating pattern — vegetables, fruit, whole grains, low-fat dairy, sodium restrained — lowers systolic pressure by roughly 8–11 points in hypertensive adults in trials. Regular aerobic exercise adds about 5–8. Losing weight returns about a point per kilogram. Limiting alcohol and quitting smoking stack further gains, and managing sleep apnoea — a hidden driver — can transform resistant readings. None of this replaces medication when medication is indicated; all of it multiplies the medication's effect and sometimes reduces the dose a clinician needs.</p>
+<p>Track the experiment honestly: when you change a habit, give the log four weeks before judging, because pressure responds over weeks, not days. PressureMap's averages make the verdict visible. And if your numbers sit stubbornly in Stage 2 despite real effort, that is information, not failure — some pressure is genetic and structural, and modern medication handles it well. The goal was never to win without help; it is to know your numbers, map your pattern, and act at the level your category demands.</p>
+<h2>A calm way to begin</h2>
+<p>If you have never mapped your pressure, begin with a simple protocol: morning (before food and medication) and evening, two readings a minute apart, for seven days. Log the second reading each time. At the week's end you will possess something most adults never have — your actual baseline, categorised — and a first appointment-ready dataset if the pattern asks for one. Thirty seconds, twice a day, for the arteries you plan to use for decades. That is the entire pitch, and the log above is ready when you are.</p>
+<h2>Home monitoring schedules that clinicians actually use</h2>
+<p>A common evidence-based pattern for a proper home series is the rule of sevens adapted for the log: seven days, two occasions a day, two readings per occasion a minute apart, discarding the first day's readings (ritual inflation) and averaging the rest. PressureMap's morning/evening averages were designed for exactly this protocol; run it before a medication review or after a lifestyle change and the CSV you hand over is the format clinicians trust most — dated, timed, and averaged rather than cherry-picked.</p>
+<p>Measure at the same times, on the same arm, with the same cuff position, and note unusual days in words elsewhere — the pattern is the data; outliers with explanations are information, outliers without are noise. Six weeks of that discipline tells a truer story about your arteries than a decade of annual clinic readings, because it samples the life your pressure actually lives.</p>
+<h2>What to do with a worrying pattern</h2>
+<p>Suppose your week's log settles squarely in Stage 1 or Stage 2. The correct sequence is unglamorous and effective: book the clinician, take the log, and in the interval keep measuring at the protocol's rhythm rather than hourly — anxiety-measuring inflates readings and teaches nothing. Bring a list of medications and supplements, since several common ones move pressure; bring your cuff if the clinician wants it checked against theirs. Then expect a plan in layers — confirmation monitoring, lifestyle prescriptions with actual numbers, medication if indicated, and a review date. A worrying pattern discovered at home, early and documented, is the best possible version of that news: it is how quiet conditions get managed for decades instead of announced in emergencies.</p>
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq"><summary>What is a normal blood pressure reading?</summary><p>Below 120 systolic and below 80 diastolic is Normal under AHA bands. 120–129 with diastolic under 80 is Elevated; 130/80 and above enters hypertension stages, classified by whichever number is higher.</p></details>
+<details class="faq"><summary>Can one high reading diagnose hypertension?</summary><p>No. Diagnosis requires repeated readings over days, ideally structured home or 24-hour monitoring. A single high value is a prompt to measure properly and consult a clinician — especially if readings stay in Stage 1 or 2.</p></details>
+<details class="faq"><summary>When is blood pressure an emergency?</summary><p>Above 180 systolic and/or 120 diastolic is the crisis band. With chest pain, breathlessness, weakness, confusion or vision changes, seek emergency care immediately rather than re-measuring.</p></details>
+<details class="faq"><summary>How often should I check my blood pressure?</summary><p>For mapping a baseline: morning and evening for a week, two readings a minute apart, logging the second. For maintenance, a few readings weekly suffice for most people — follow your clinician's guidance for your situation.</p></details>
+<details class="faq"><summary>Is my reading log private?</summary><p>Yes. The log lives only in your browser's local storage on this device — nothing is uploaded. Exporting CSV creates a file you control, designed for sharing with your doctor.</p></details>
+<details class="faq"><summary>Why log morning and evening separately?</summary><p>Pressure follows a daily rhythm — morning surge, evening variation — and patterns like high mornings only are diagnostically meaningful. Separate averages reveal what a single overall average hides.</p></details>
+  </article>
+</section>
+<footer class="mt-6 py-8" style="background:#4C0519;color:#FFF1F2">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 text-center text-sm">
+    <p class="font-bold text-base">PressureMap</p>
+    <p class="opacity-80 mt-1">Free blood pressure checker. Enter systolic and diastolic readings to get your AHA category instantly — plus a private reading log with morning/evening averages and CSV export.</p>
+    <p class="mt-2"><a href="#top" class="underline">Home</a> · <a href="https://fixoraa.tech" class="underline">More Tools</a></p>
+    <p class="fx-credit" style="text-align:center;font-size:12.5px;opacity:.62;margin:10px auto 2px;letter-spacing:.01em">Made by <a href="https://fixoraa.tech" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px">Fixoraa</a></p>
+  </div>
+</footer>
+<script id="lib-pressuremap">
+
+function bpCategory(sys, dia){
+  if (sys<120 && dia<80) return {name:'Normal', color:'#16A34A', advice:'Maintain healthy habits and recheck at least yearly.'};
+  if (sys<130 && dia<80) return {name:'Elevated', color:'#CA8A04', advice:'No medication usually; lifestyle changes and recheck in 3–6 months.'};
+  if ((sys>=130&&sys<140)||(dia>=80&&dia<90)) return {name:'Stage 1 Hypertension', color:'#EA580C', advice:'See a clinician — lifestyle changes and possibly medication; recheck within a month.'};
+  if (sys>=180||dia>=120) return {name:'Hypertensive Crisis', color:'#991B1B', advice:'Seek emergency care now, especially with chest pain, breathlessness or vision changes.'};
+  return {name:'Stage 2 Hypertension', color:'#DC2626', advice:'See a clinician promptly — medication is usually needed alongside lifestyle changes.'};
+}
+if (typeof module!=="undefined") module.exports={bpCategory:bpCategory};
+
+</script>
+<script>
+
+function log(){return JSON.parse(localStorage.getItem('pm-log')||'[]');}
+function check(){
+  var s=+document.getElementById('sys').value,d=+document.getElementById('dia').value,w=document.getElementById('when').value;
+  var c=bpCategory(s,d);
+  var el=document.getElementById('cat'); el.style.background=c.color; el.style.color='#fff'; el.innerHTML=c.name+'<div class="text-sm font-semibold mt-1">'+c.advice+'</div>';
+  var L=log(); L.push({t:new Date().toISOString(),s:s,d:d,w:w,cat:c.name}); localStorage.setItem('pm-log',JSON.stringify(L)); render();
+}
+function render(){
+  var L=log();
+  document.getElementById('tbl').innerHTML='<tr><th>Date</th><th>When</th><th>Reading</th><th>Category</th></tr>'+L.slice().reverse().map(function(r){return '<tr><td>'+r.t.slice(0,10)+'</td><td>'+r.w+'</td><td><b>'+r.s+'/'+r.d+'</b></td><td>'+r.cat+'</td></tr>';}).join('');
+  if(L.length){var ms=L.filter(function(r){return r.w==='morning';}),es=L.filter(function(r){return r.w==='evening';});
+    function avg(a,k){return a.length?Math.round(a.reduce(function(x,r){return x+r[k];},0)/a.length):'–';}
+    document.getElementById('stats').textContent='Averages — overall '+avg(L,'s')+'/'+avg(L,'d')+' · mornings '+avg(ms,'s')+'/'+avg(ms,'d')+' · evenings '+avg(es,'s')+'/'+avg(es,'d')+' · '+L.length+' reading(s) logged.';
+  } else document.getElementById('stats').textContent='No readings yet — your first check starts the log.';
+}
+function exportCsv(){var L=log();var csv='date,when,systolic,diastolic,category\n'+L.map(function(r){return r.t+','+r.w+','+r.s+','+r.d+','+r.cat;}).join('\n');var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='pressuremap-log.csv';a.click();}
+function clearLog(){localStorage.removeItem('pm-log');render();}
+render();
+
+</script>
+</body>
+</html>
